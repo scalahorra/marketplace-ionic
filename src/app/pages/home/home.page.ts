@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { List } from '../../interfaces/List';
+import { MocksService } from 'src/app/services/mocks.service';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() {}
+  mocked: boolean = true;
+  lists: List[] = [];
 
-  ngOnInit(): void {}
+  constructor( private mockService: MocksService ) {}
+
+  ngOnInit(): void {
+
+    if (this.mocked) {
+      this.lists = this.mockService.getLists();
+    }
+
+  }
 
 }

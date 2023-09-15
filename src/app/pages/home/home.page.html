@@ -1,3 +1,10 @@
 <ion-content class="ion-padding">
-  <strong>Buenos días con alegría</strong>
+
+  <ion-item *ngFor="let list of lists" class="list" detail="true">
+    <div>
+      <h3 class="list-name">{{ list.name }}</h3>
+      <p class="list-creation-date">{{ list.creationDate }}</p>
+    </div>
+  </ion-item>
+
 </ion-content>
