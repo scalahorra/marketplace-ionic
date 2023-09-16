@@ -4,6 +4,8 @@ import { MocksService } from 'src/app/services/mocks.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { List } from '../../interfaces/List';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -13,8 +15,6 @@ export class HomePage implements OnInit {
 
   mocked: boolean = true;
   lists: List[] = [];
-  email: string = 'sergiocalahorra20@gmail.com';
-  password: string = '123456';
 
   constructor(
     private mockService: MocksService,
@@ -30,7 +30,7 @@ export class HomePage implements OnInit {
   }
 
   register() {
-    this.authService.registerWithEmailAndPassword(this.email, this.password)
+    this.authService.registerWithEmailAndPassword(environment.loginUser.email, environment.loginUser.password)
       .then(response => {
         console.log('Registro exitoso: ', response);
       })
@@ -40,13 +40,23 @@ export class HomePage implements OnInit {
   }
 
   signin() {
-    this.authService.loginWithEmailAndPassword(this.email, this.password)
+    this.authService.loginWithEmailAndPassword(environment.loginUser.email, environment.loginUser.password)
       .then(response => {
         console.log('Inicio de sesión existoso: ', response);
       })
       .catch(error => {
         console.log('Error al iniciar sesión: ', error);
+      });
+  }
+
+  signinGoogle() {
+    this.authService.loginWithGoogle()
+      .then(response => {
+        console.log('Inicio de sesión con Google exitoso: ', response);
       })
+      .then(error => {
+        console.log('Error al iniciar sesión con Google: ', error);
+      });
   }
 
   logout() {
@@ -57,6 +67,11 @@ export class HomePage implements OnInit {
       .catch(error => {
         console.log('Error en desconexión: ', error);
       });
+  }
+
+  checkAuth() {
+    this.authService.checkAuthStatus().then(status => {
+    });
   }
 
 }
