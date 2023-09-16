@@ -1,0 +1,9 @@
+<div class="user-container">
+  <div *ngIf="isAuth">
+    <img *ngIf="userInfo?.photoUrl" class="user-photo" [src]="userInfo?.photoUrl" />
+    <ion-icon *ngIf="!userInfo?.photoUrl" class="user-photo" name="person"></ion-icon>
+  </div>
+  <div *ngIf="!isAuth">
+    <ion-button (click)="openAuthProviders()" color="primary">Logear</ion-button>
+  </div>
+</div>
