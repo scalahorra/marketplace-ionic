@@ -16,7 +16,10 @@ export class AuthButtonComponent  implements OnInit, OnDestroy {
   userInfo?: User | null;
   private subscriptions: Subscription[] = [];
 
-  constructor( private authService: AuthService, private modalController: ModalController ) { }
+  constructor(
+    private authService: AuthService,
+    private modalController: ModalController
+  ) { }
 
   ngOnInit() {
     this.subscriptions.push(
@@ -31,6 +34,15 @@ export class AuthButtonComponent  implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  async openAuthProviders() {
+    console.log('entramos')
+    const modal = await this.modalController.create({
+      component: AuthModalComponent,
+      cssClass: 'modal'
+    });
+    return await modal.present();
   }
 
 }
