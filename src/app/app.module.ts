@@ -9,11 +9,13 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomePage } from './pages/home/home.page';
+import { ListCardComponent } from './components/list-card/list-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePage
+    HomePage,
+    ListCardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,7 @@
 <ion-content class="ion-padding">
 
   <ion-item *ngFor="let list of lists" class="list" detail="true">
-    <div>
-      <h3 class="list-name">{{ list.name }}</h3>
-      <p class="list-creation-date">{{ list.creationDate }}</p>
-    </div>
+    <app-list-card class="list-container" [list]="list"></app-list-card>
   </ion-item>
 
 </ion-content>
