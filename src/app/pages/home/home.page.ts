@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MocksService } from 'src/app/services/mocks.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { MocksService } from 'src/app/services/mocks.service';
 import { List } from '../../interfaces/List';
 
+import { User } from 'src/app/interfaces/User';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -42,6 +43,7 @@ export class HomePage implements OnInit {
   signin() {
     this.authService.loginWithEmailAndPassword(environment.loginUser.email, environment.loginUser.password)
       .then(response => {
+        this.saveUserInfo(response);
         console.log('Inicio de sesión existoso: ', response);
       })
       .catch(error => {
@@ -52,6 +54,7 @@ export class HomePage implements OnInit {
   signinGoogle() {
     this.authService.loginWithGoogle()
       .then(response => {
+        this.saveUserInfo(response);
         console.log('Inicio de sesión con Google exitoso: ', response);
       })
       .then(error => {
@@ -69,9 +72,16 @@ export class HomePage implements OnInit {
       });
   }
 
-  checkAuth() {
-    this.authService.checkAuthStatus().then(status => {
-    });
+  saveUserInfo(userInfo: any) {
+    const authInfo: User = {
+      accessToken: userInfo.user.accessToken,
+      email: userInfo.user.providerData[0].email,
+      emailVerified: userInfo.user.emailVerified,
+      name: userInfo.user.providerData[0].displayName,
+      phoneNumber: userInfo.user.providerData[0].phoneNumber,
+      photoUrl: userInfo.user.providerData[0].photoURL
+    }
+    this.authService.setUserInfo(authInfo);
   }
 
 }

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
 } from "firebase/auth";
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +18,30 @@ export class AuthService {
 
   auth = getAuth();
 
+  private authStatus$ = new BehaviorSubject<any>(null);
+  private userInfo$ = new BehaviorSubject<User | null | undefined>(null);
+
   constructor() {}
 
-  checkAuthStatus(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      onAuthStateChanged(this.auth, user => {
-        console.log(user);
-        resolve(user);
-      }, reject);
+  getAuthStatus() {
+    return this.authStatus$.asObservable();
+  }
+
+  setAuthStatus(status: any) {
+    this.authStatus$.next(status);
+  }
+
+  getUserInfo() {
+    return this.userInfo$.asObservable();
+  }
+
+  setUserInfo(userInfo: any) {
+    this.userInfo$.next(userInfo);
+  }
+
+  checkAuthStatus() {
+    onAuthStateChanged(this.auth, status => {
+      this.setAuthStatus(status)
     });
   }
 
