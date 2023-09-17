@@ -62,4 +62,16 @@ export class AuthService {
     return signOut(this.auth);
   }
 
+  mapUserInfo(auth: any) {
+    const user: User = {
+      accessToken: auth.user.accessToken,
+      email: auth.user.providerData[0].email,
+      emailVerified: auth.user.emailVerified,
+      name: auth.user.providerData[0].displayName,
+      phoneNumber: auth.user.providerData[0].phoneNumber,
+      photoUrl: auth.user.providerData[0].photoURL
+    }
+    this.setUserInfo(user);
+  }
+
 }

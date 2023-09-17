@@ -10,7 +10,7 @@ import { AuthModalComponent } from '../auth-modal/auth-modal.component';
   templateUrl: './auth-button.component.html',
   styleUrls: ['./auth-button.component.scss'],
 })
-export class AuthButtonComponent  implements OnInit, OnDestroy {
+export class AuthButtonComponent implements OnInit, OnDestroy {
 
   isAuth: boolean = false;
   userInfo?: User | null;
@@ -21,7 +21,7 @@ export class AuthButtonComponent  implements OnInit, OnDestroy {
     private modalController: ModalController
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.subscriptions.push(
       this.authService.getAuthStatus().subscribe(response => {
         this.isAuth = response ? true : false;
@@ -36,8 +36,7 @@ export class AuthButtonComponent  implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  async openAuthProviders() {
-    console.log('entramos')
+  async openAuthProvidersModal() {
     const modal = await this.modalController.create({
       component: AuthModalComponent,
       cssClass: 'modal'
