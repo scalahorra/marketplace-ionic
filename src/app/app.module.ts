@@ -10,20 +10,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
-import { ListCardComponent } from './components/list-card/list-card.component';
 import { HomePage } from './pages/home/home.page';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePage,
-    ListCardComponent,
     AuthButtonComponent,
     AuthModalComponent
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     AppRoutingModule,
     CommonModule,
     FormsModule,
