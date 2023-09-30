@@ -23,11 +23,13 @@ export class AuthButtonComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.authService.getAuthStatus().subscribe(response => {
-        this.isAuth = response ? true : false;
-      }),
       this.authService.getUserInfo().subscribe(response => {
-        this.userInfo = response;
+        if (response) {
+          this.isAuth = true;
+          this.userInfo = response;
+        } else {
+          this.isAuth = false;
+        }
       })
     );
   }
@@ -39,7 +41,8 @@ export class AuthButtonComponent implements OnInit, OnDestroy {
   async openAuthProvidersModal() {
     const modal = await this.modalController.create({
       component: AuthModalComponent,
-      cssClass: 'modal'
+      cssClass: 'modal',
+      animated: false
     });
     return await modal.present();
   }

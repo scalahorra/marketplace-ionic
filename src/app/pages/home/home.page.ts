@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { MocksService } from 'src/app/services/mocks.service';
@@ -28,6 +29,10 @@ export class HomePage implements OnInit {
       this.lists = this.mockService.getLists();
     }
 
+    // TODO: Saca la hora en el formato que quiero
+    moment.locale('es');
+    console.log(moment().format('DD MMM YYYY HH:mm'));
+
   }
 
   register() {
@@ -37,28 +42,6 @@ export class HomePage implements OnInit {
       })
       .catch(error => {
         console.log('Error al registrarse: ', error);
-      });
-  }
-
-  signin() {
-    this.authService.loginWithEmailAndPassword(environment.loginUser.email, environment.loginUser.password)
-      .then(response => {
-        this.saveUserInfo(response);
-        console.log('Inicio de sesión existoso: ', response);
-      })
-      .catch(error => {
-        console.log('Error al iniciar sesión: ', error);
-      });
-  }
-
-  signinGoogle() {
-    this.authService.loginWithGoogle()
-      .then(response => {
-        this.saveUserInfo(response);
-        console.log('Inicio de sesión con Google exitoso: ', response);
-      })
-      .then(error => {
-        console.log('Error al iniciar sesión con Google: ', error);
       });
   }
 

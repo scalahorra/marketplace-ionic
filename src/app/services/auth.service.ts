@@ -18,18 +18,9 @@ export class AuthService {
 
   auth = getAuth();
 
-  private authStatus$ = new BehaviorSubject<any>(null);
   private userInfo$ = new BehaviorSubject<User | null | undefined>(null);
 
   constructor() {}
-
-  getAuthStatus() {
-    return this.authStatus$.asObservable();
-  }
-
-  setAuthStatus(status: any) {
-    this.authStatus$.next(status);
-  }
 
   getUserInfo() {
     return this.userInfo$.asObservable();
@@ -41,7 +32,11 @@ export class AuthService {
 
   checkAuthStatus() {
     onAuthStateChanged(this.auth, status => {
-      this.setAuthStatus(status)
+      if (status) {
+        this.setUserInfo(this.mapUserInfoAuth(status));
+      } else {
+        this.setUserInfo(null);
+      }
     });
   }
 
@@ -62,16 +57,16 @@ export class AuthService {
     return signOut(this.auth);
   }
 
-  mapUserInfo(auth: any) {
+  mapUserInfoAuth(auth: any): User {
     const user: User = {
-      accessToken: auth.user.accessToken,
-      email: auth.user.providerData[0].email,
-      emailVerified: auth.user.emailVerified,
-      name: auth.user.providerData[0].displayName,
-      phoneNumber: auth.user.providerData[0].phoneNumber,
-      photoUrl: auth.user.providerData[0].photoURL
+      accessToken: auth.accessToken,
+      email: auth.email,
+      emailVerified: auth.emailVerified,
+      name: auth.displayName,
+      phoneNumber: auth.phoneNumber,
+      photoUrl: auth.photoURL
     }
-    this.setUserInfo(user);
+    return user;
   }
 
 }
