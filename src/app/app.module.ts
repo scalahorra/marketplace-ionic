@@ -8,21 +8,21 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthButtonComponent } from './components/auth-button/auth-button.component';
-import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
+import { UserButtonComponent } from './components/user-button/user-button.component';
 import { HomePage } from './pages/home/home.page';
+import { UnregisteredUserModalComponent } from './components/unregistered-user-modal/unregistered-user-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePage,
-    AuthButtonComponent,
-    AuthModalComponent
+    UserButtonComponent,
+    UnregisteredUserModalComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot({
-      mode: 'ios'
+      // mode: 'ios'
     }),
     AppRoutingModule,
     CommonModule,

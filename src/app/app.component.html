@@ -20,7 +20,7 @@
         <ion-title>Home</ion-title>
 
         <ion-buttons slot="end">
-          <app-auth-button></app-auth-button>
+          <app-user-button></app-user-button>
         </ion-buttons>
 
       </ion-toolbar>
@@ -28,4 +28,6 @@
 
     <ion-router-outlet></ion-router-outlet>
   </div>
+
+  <div *ngIf="isModalOpen" (click)="closeModal()" class="modal-backdrop"></div>
 </ion-app>

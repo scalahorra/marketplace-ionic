@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
   }
 
   register() {
-    this.authService.registerWithEmailAndPassword(environment.loginUser.email, environment.loginUser.password)
+    this.authService.registerWithEmail(environment.loginUser.email, environment.loginUser.password)
       .then(response => {
         console.log('Registro exitoso: ', response);
       })

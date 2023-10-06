@@ -1,0 +1,32 @@
+.title {
+  padding-inline: unset!important;
+}
+
+.login-input {
+  width: 95%;
+  --ion-item-background: var(--ion-background-color, #fff);
+}
+
+.login-input:first-of-type {
+  margin-top: .8rem;
+}
+
+ion-input {
+  --highlight-color: #b845ff!important;
+  --border-color: var(--color-app)!important;
+}
+
+ion-item {
+  --border-color: rgb(98, 98, 98)!important;
+}
+
+.login-button {
+  margin-top: 5rem;
+  --background: var(--color-app);
+}
+
+.spinner {
+  position: absolute;
+  top: 40%;
+  right: 45%;
+}

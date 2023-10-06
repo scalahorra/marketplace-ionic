@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { Subscription } from 'rxjs';
+import { ModalService } from './services/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,28 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor( private authService: AuthService ) {}
+  private subscriptions: Subscription[] = [];
+  isModalOpen: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.checkAuthStatus();
+    // this.authService.checkAuthStatus();
+    this.subscriptions.push(
+      this.modalService.getIsOpen.subscribe((isOpen: boolean) => {
+        this.isModalOpen = isOpen;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+
+  closeModal() {
+    this.modalService.setIsOpen = false;
   }
 }

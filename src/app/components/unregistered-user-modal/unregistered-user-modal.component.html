@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">
+      Iniciar Sesión
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngIf="!isLoading">
+    <ion-item class="login-input">
+      <ion-input [(ngModel)]="email" type="email" label="Email" labelPlacement="floating"></ion-input>
+    </ion-item>
+
+    <ion-item class="login-input">
+      <ion-input [(ngModel)]="password" type="password" label="Password" labelPlacement="floating"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" (click)="loginWithEmail()" class="login-button">Iniciar Sesión</ion-button>
+    <ion-button expand="full" (click)="register()">Registrarse</ion-button>
+
+    <ion-button expand="full" (click)="loginWithGoogle()">Iniciar Sesión con Google</ion-button>
+  </div>
+
+  <ion-spinner *ngIf="isLoading" name="crescent" class="spinner"></ion-spinner>
+</ion-content>

@@ -40,11 +40,11 @@ export class AuthService {
     });
   }
 
-  registerWithEmailAndPassword(email: string, password: string) {
+  registerWithEmail(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
-  loginWithEmailAndPassword(email: string, password: string) {
+  loginWithEmail(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 

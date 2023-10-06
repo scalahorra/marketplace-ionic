@@ -1,0 +1,9 @@
+.user-container {
+  margin-right: .5rem;
+
+  & .user-photo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+}
