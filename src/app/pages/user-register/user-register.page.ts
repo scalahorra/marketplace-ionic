@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  BOTTOM_POSITION,
+  SHORT_DURATION,
+} from 'src/app/constants/app-constant';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { matchFieldsValidator } from 'src/app/shared/validators/matchFieldsValidator';
 
 @Component({
@@ -12,13 +17,13 @@ import { matchFieldsValidator } from 'src/app/shared/validators/matchFieldsValid
 export class UserRegisterPage implements OnInit {
   showPassword: boolean = false;
   showRepeatPassword: boolean = false;
-
   registrationForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.registrationForm = this.formBuilder.group(
       {
@@ -42,16 +47,35 @@ export class UserRegisterPage implements OnInit {
     if (this.registrationForm.valid) {
       const email = this.registrationForm.get('email')?.value;
       const password = this.registrationForm.get('password')?.value;
-      this.authService.registerWithEmail(email, password)
-        .then(res => {
-          console.log('REGISTRO EXISTOSO', res);
+      this.authService
+        .registerWithEmail(email, password)
+        .then((res) => {
+          const message = 'Registro existoso';
+          this.toastService.present(
+            message,
+            SHORT_DURATION,
+            BOTTOM_POSITION,
+            'success'
+          );
           this.router.navigate(['/home']);
         })
-        .catch(err => {
-          console.log('FALLO REGISTRO', err);
+        .catch((err) => {
+          const message = 'Error al registrarse';
+          this.toastService.present(
+            message,
+            SHORT_DURATION,
+            BOTTOM_POSITION,
+            'danger'
+          );
         });
     } else {
-      console.log('Formulario inválido', this.registrationForm);
+      const message = 'Revise los datos introducidos';
+      this.toastService.present(
+        message,
+        SHORT_DURATION,
+        BOTTOM_POSITION,
+        'danger'
+      );
     }
   }
 
