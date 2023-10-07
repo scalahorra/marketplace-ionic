@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -19,7 +20,8 @@ export class UnregisteredUserModalComponent  implements OnInit, OnDestroy {
   constructor(
     private modalService: ModalService,
     private modalCtrl: ModalController,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +60,10 @@ export class UnregisteredUserModalComponent  implements OnInit, OnDestroy {
       });
   }
 
-  register() {}
+  register() {
+    this.router.navigate(['/register']);
+    this.closeModal();
+  }
 
   successfulLogin(response: any) {
     this.closeModal();

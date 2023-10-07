@@ -13,6 +13,11 @@ export class AppComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   isModalOpen: boolean = false;
 
+  routes: any = [
+    { label: 'Home', path: '/home'},
+    { label: 'Registro', path: '/register'}
+  ];
+
   constructor(
     private authService: AuthService,
     private modalService: ModalService

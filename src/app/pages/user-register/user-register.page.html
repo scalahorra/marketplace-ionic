@@ -1,0 +1,70 @@
+<ion-content class="page">
+  <form
+    [formGroup]="registrationForm"
+    (ngSubmit)="sendRegistration()"
+    class="centrar form"
+  >
+    <ion-input
+      formControlName="email"
+      name="email"
+      type="email"
+      class="input-registration"
+      label="Email"
+      label-placement="floating"
+      fill="outline"
+      autocomplete="off"
+      required
+    ></ion-input>
+
+    <ion-input
+      formControlName="repeatedEmail"
+      name="repeatName"
+      type="email"
+      class="input-registration"
+      label="Repita email"
+      label-placement="floating"
+      fill="outline"
+      autocomplete="off"
+      required
+    ></ion-input>
+
+    <ion-input
+      formControlName="password"
+      name="password"
+      type="{{ showPassword ? 'text' : 'password' }}"
+      class="input-registration password-input"
+      label="Contraseña"
+      label-placement="floating"
+      fill="outline"
+      minlength="6"
+      required
+    >
+      <ion-icon
+        (click)="togglePassword('normal')"
+        [name]="showPassword ? 'eye-off' : 'eye'"
+      ></ion-icon>
+    </ion-input>
+
+    <ion-input
+      formControlName="repeatedPassword"
+      name="repeatPassword"
+      type="{{ showRepeatPassword ? 'text' : 'password' }}"
+      class="input-registration password-input"
+      label="Repita contraseña"
+      label-placement="floating"
+      fill="outline"
+      required
+    >
+      <ion-icon
+        (click)="togglePassword('repeat')"
+        [name]="showRepeatPassword ? 'eye-off' : 'eye'"
+      ></ion-icon>
+    </ion-input>
+
+    <ion-button type="submit" shape="round" expand="full" class="btn-submit"
+      >Enviar</ion-button
+    >
+
+    <ion-button type="reset" expand="full">Restablecer</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,28 @@
+.form {
+  height: calc(100vh - 56px);
+  padding-top: 5rem;
+}
+
+.input-registration {
+  width: 90%;
+  margin-top: 1rem;
+  --highlight-color-focused: var(--color-app);
+}
+
+.password-input {
+  position: relative;
+
+  & ion-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    z-index: 5;
+  }
+}
+
+.btn-submit {
+  width: 90%;
+  margin-top: 3rem;
+  --background: var(--color-app);
+}

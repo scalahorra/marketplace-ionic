@@ -3,9 +3,17 @@
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Home</ion-title>
+        <ion-title>Menu</ion-title>
       </ion-toolbar>
     </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-item *ngFor="let route of routes">
+          <ion-router-link [routerLink]="route.path">{{route.label}}</ion-router-link>
+        </ion-item>
+      </ion-list>
+    </ion-content>
   </ion-menu>
 
   <div class="ion-page" id="main-content">

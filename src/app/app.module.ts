@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -11,13 +11,15 @@ import { AppComponent } from './app.component';
 import { UserButtonComponent } from './components/user-button/user-button.component';
 import { HomePage } from './pages/home/home.page';
 import { UnregisteredUserModalComponent } from './components/unregistered-user-modal/unregistered-user-modal.component';
+import { UserRegisterPage } from './pages/user-register/user-register.page';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePage,
+    UserRegisterPage,
     UserButtonComponent,
-    UnregisteredUserModalComponent
+    UnregisteredUserModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { UnregisteredUserModalComponent } from './components/unregistered-user-m
     CommonModule,
     FormsModule,
     IonicModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
