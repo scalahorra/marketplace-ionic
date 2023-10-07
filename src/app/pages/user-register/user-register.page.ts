@@ -8,6 +8,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { UtilsService } from 'src/app/services/utils.service';
 import { matchFieldsValidator } from 'src/app/shared/validators/matchFieldsValidator';
 
 @Component({
@@ -25,7 +26,8 @@ export class UserRegisterPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastService: ToastService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private utils: UtilsService
   ) {
     this.registrationForm = this.formBuilder.group(
       {
@@ -55,7 +57,7 @@ export class UserRegisterPage implements OnInit {
       this.authService
         .registerWithEmail(email, password)
         .then((res) => {
-          message = 'Usuario registrado';
+          message = this.utils.labels.toast_successful_registration;
           this.loadingService.dismiss();
           this.toastService.present(
             message,
@@ -66,7 +68,7 @@ export class UserRegisterPage implements OnInit {
           this.router.navigate(['/home']);
         })
         .catch((err) => {
-          message = 'Ha ocurrido un error';
+          message = this.utils.labels.toast_successful_registration;
           this.loadingService.dismiss();
           this.toastService.present(
             message,
@@ -76,7 +78,7 @@ export class UserRegisterPage implements OnInit {
           );
         });
     } else {
-      message = 'Hay datos incorrectos';
+      message = this.utils.labels.toast_invalid_form;
       this.toastService.present(
         message,
         SHORT_DURATION,

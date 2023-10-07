@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
 import { ModalService } from './services/modal.service';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
+    this.utilsService.loadLabels();
     this.authService.checkAuthStatus();
     this.subscriptions.push(
       this.modalService.getIsOpen.subscribe((isOpen: boolean) => {

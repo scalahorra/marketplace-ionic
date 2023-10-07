@@ -1,0 +1,6 @@
+{
+  "toast_successful_login": "Sesión iniciada",
+  "toast_failed_login": "Ha ocurrido un error",
+  "toast_successful_registration": "Usuario registrado",
+  "toast_invalid_form": "Hay datos incorrectos"
+}

@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { ToastService } from 'src/app/services/toast.service';
+import * as labels from '../../../assets/labels.json';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-unregistered-user-modal',
@@ -24,7 +26,8 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private loadingService: LoadingService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private utils: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +52,12 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
       .then((res) => {
         this.loadingService.dismiss();
         this.closeModal();
-        message = 'Sesión iniciada';
+        message = this.utils.labels.toast_successful_login;
         this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'success');
       })
       .catch((err) => {
         this.loadingService.dismiss();
-        message = 'Ha ocurrido un error';
+        message = this.utils.labels.toast_failed_login;
         this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'danger');
       });
   }
@@ -67,12 +70,12 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
       .then((res) => {
         this.loadingService.dismiss();
         this.closeModal();
-        message = 'Sesión iniciada';
+        message = this.utils.labels.toast_successful_login;
         this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'success');
       })
       .catch((err) => {
         this.loadingService.dismiss();
-        message = 'Ha ocurrido un error';
+        message = this.utils.labels.toast_failed_login;
         this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'danger');
       });
   }
