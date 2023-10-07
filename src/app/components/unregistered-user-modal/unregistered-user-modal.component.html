@@ -14,18 +14,37 @@
 
 <ion-content>
   <div *ngIf="!isLoading">
-    <ion-item class="login-input">
-      <ion-input [(ngModel)]="email" type="email" label="Email" labelPlacement="floating"></ion-input>
+    <ion-item class="login-input-item">
+      <ion-input
+        [(ngModel)]="email"
+        type="email"
+        placeholder="ejemplo@ejemplo.com"
+        label="Email"
+        labelPlacement="floating">
+      </ion-input>
     </ion-item>
 
-    <ion-item class="login-input">
-      <ion-input [(ngModel)]="password" type="password" label="Password" labelPlacement="floating"></ion-input>
+    <ion-item class="login-input-item">
+      <ion-input
+        [(ngModel)]="password"
+        type="password"
+        placeholder="Mínimo 6 letras"
+        label="Contraseña"
+        labelPlacement="floating">
+      </ion-input>
     </ion-item>
 
-    <ion-button expand="full" (click)="loginWithEmail()" class="login-button">Iniciar Sesión</ion-button>
-    <ion-button expand="full" (click)="register()">Registrarse</ion-button>
+    <ion-item>
+      <ion-button expand="full" shape="round" (click)="loginWithEmail()" class="login-email-button">Iniciar Sesión</ion-button>
+    </ion-item>
 
-    <ion-button expand="full" (click)="loginWithGoogle()">Iniciar Sesión con Google</ion-button>
+    <ion-button fill="clear" (click)="register()" class="register-button">¿No estás registrado? Hazlo ahora</ion-button>
+
+    <ion-button expand="full" (click)="loginWithGoogle()" class="google-login-button">
+      <ion-icon src="assets/icon/google.svg"></ion-icon>
+      Iniciar Sesión con Google
+    </ion-button>
+
   </div>
 
   <ion-spinner *ngIf="isLoading" name="crescent" class="spinner"></ion-spinner>
