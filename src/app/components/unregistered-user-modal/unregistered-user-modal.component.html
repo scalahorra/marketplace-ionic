@@ -13,7 +13,7 @@
 
 
 <ion-content>
-  <div *ngIf="!isLoading">
+  <div>
     <ion-item class="login-input-item">
       <ion-input
         [(ngModel)]="email"
@@ -46,6 +46,4 @@
     </ion-button>
 
   </div>
-
-  <ion-spinner *ngIf="isLoading" name="crescent" class="spinner"></ion-spinner>
 </ion-content>

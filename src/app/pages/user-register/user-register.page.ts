@@ -6,6 +6,7 @@ import {
   SHORT_DURATION,
 } from 'src/app/constants/app-constant';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { matchFieldsValidator } from 'src/app/shared/validators/matchFieldsValidator';
 
@@ -23,7 +24,8 @@ export class UserRegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loadingService: LoadingService
   ) {
     this.registrationForm = this.formBuilder.group(
       {
@@ -44,13 +46,17 @@ export class UserRegisterPage implements OnInit {
   ngOnInit() {}
 
   sendRegistration() {
+    let message;
     if (this.registrationForm.valid) {
+      this.loadingService.present();
       const email = this.registrationForm.get('email')?.value;
       const password = this.registrationForm.get('password')?.value;
+
       this.authService
         .registerWithEmail(email, password)
         .then((res) => {
-          const message = 'Registro existoso';
+          message = 'Usuario registrado';
+          this.loadingService.dismiss();
           this.toastService.present(
             message,
             SHORT_DURATION,
@@ -60,7 +66,8 @@ export class UserRegisterPage implements OnInit {
           this.router.navigate(['/home']);
         })
         .catch((err) => {
-          const message = 'Error al registrarse';
+          message = 'Ha ocurrido un error';
+          this.loadingService.dismiss();
           this.toastService.present(
             message,
             SHORT_DURATION,
@@ -69,7 +76,7 @@ export class UserRegisterPage implements OnInit {
           );
         });
     } else {
-      const message = 'Revise los datos introducidos';
+      message = 'Hay datos incorrectos';
       this.toastService.present(
         message,
         SHORT_DURATION,
