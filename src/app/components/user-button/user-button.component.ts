@@ -25,7 +25,7 @@ export class UserButtonComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.authService.getUserInfo().subscribe(response => {
+      this.authService.getUserInfo.subscribe(response => {
         if (response) {
           this.isAuth = true;
           this.userInfo = response;

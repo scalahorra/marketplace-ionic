@@ -40,18 +40,29 @@ export class UnregisteredUserModalComponent  implements OnInit, OnDestroy {
     this.isLoading = true;
     this.authService.loginWithEmail(this.email, this.password)
       .then(res => {
-        this.isLoading = false;
-        console.log('Éxito', res);
+        this.successfulLogin(res);
       })
       .catch(err => {
         this.isLoading = false;
-        console.log('Error', err);
-      })
+      });
   }
 
-  loginWithGoogle() {}
+  loginWithGoogle() {
+    this.isLoading = true;
+    this.authService.loginWithGoogle()
+      .then(res => {
+        this.closeModal();
+      })
+      .catch(err => {
+        this.isLoading = false;
+      });
+  }
 
   register() {}
+
+  successfulLogin(response: any) {
+    this.closeModal();
+  }
 
   closeModal() {
     this.modalService.setIsOpen = false;

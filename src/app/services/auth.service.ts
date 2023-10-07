@@ -22,20 +22,21 @@ export class AuthService {
 
   constructor() {}
 
-  getUserInfo() {
+  get getUserInfo() {
     return this.userInfo$.asObservable();
   }
 
-  setUserInfo(userInfo: any) {
-    this.userInfo$.next(userInfo);
+  set setUserInfo(value: any) {
+    console.log('Información de usuario: ', value);
+    this.userInfo$.next(value);
   }
 
   checkAuthStatus() {
     onAuthStateChanged(this.auth, status => {
       if (status) {
-        this.setUserInfo(this.mapUserInfoAuth(status));
+        this.setUserInfo = this.mapUserInfoAuth(status);
       } else {
-        this.setUserInfo(null);
+        this.setUserInfo = null;
       }
     });
   }

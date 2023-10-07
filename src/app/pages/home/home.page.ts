@@ -64,7 +64,7 @@ export class HomePage implements OnInit {
       phoneNumber: userInfo.user.providerData[0].phoneNumber,
       photoUrl: userInfo.user.providerData[0].photoURL
     }
-    this.authService.setUserInfo(authInfo);
+    this.authService.setUserInfo = authInfo;
   }
 
 }

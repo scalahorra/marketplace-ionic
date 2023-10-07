@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.authService.checkAuthStatus();
+    this.authService.checkAuthStatus();
     this.subscriptions.push(
       this.modalService.getIsOpen.subscribe((isOpen: boolean) => {
         this.isModalOpen = isOpen;
