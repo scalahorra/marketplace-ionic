@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/User';
 import { AuthService } from 'src/app/services/auth.service';
 import { UnregisteredUserModalComponent } from '../unregistered-user-modal/unregistered-user-modal.component';
-import { ModalService } from 'src/app/services/modal.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-user-button',
@@ -20,7 +20,7 @@ export class UserButtonComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private modalCtrl: ModalController,
-    private modalService: ModalService
+    private utils: UtilsService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class UserButtonComponent implements OnInit, OnDestroy {
   }
 
   async openUnregisteredModal() {
-    this.modalService.setIsOpen = true;
+    this.utils.setIsModalOpen = true;
     const modal = await this.modalCtrl.create({
       component: UnregisteredUserModalComponent,
       cssClass: 'custom-modal',

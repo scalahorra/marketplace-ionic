@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
-import { ModalService } from './services/modal.service';
 import { UtilsService } from './services/utils.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private modalService: ModalService,
     private utils: UtilsService
   ) {}
 
@@ -35,7 +33,7 @@ export class AppComponent implements OnInit {
 
   subscribe() {
     this.subscriptions.push(
-      this.modalService.getIsOpen.subscribe((isOpen: boolean) => {
+      this.utils.getIsModalOpen.subscribe((isOpen: boolean) => {
         this.isModalOpen = isOpen;
       }),
       this.utils.getActualPage.subscribe((actualPage: string) => {
@@ -49,6 +47,6 @@ export class AppComponent implements OnInit {
   }
 
   closeModal() {
-    this.modalService.setIsOpen = false;
+    this.utils.setIsModalOpen = false;
   }
 }

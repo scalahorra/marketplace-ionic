@@ -3,9 +3,6 @@ import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { BOTTOM_POSITION, SHORT_DURATION } from 'src/app/constants/app-constant';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { ModalService } from 'src/app/services/modal.service';
-import { ToastService } from 'src/app/services/toast.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -19,17 +16,14 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
   password: string = '';
 
   constructor(
-    private modalService: ModalService,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    private loadingService: LoadingService,
-    private toastService: ToastService,
     private utils: UtilsService
   ) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.modalService.getIsOpen.subscribe((isOpen: boolean) => {
+      this.utils.getIsModalOpen.subscribe((isOpen: boolean) => {
         if (!isOpen) {
           this.modalCtrl.dismiss();
         }
@@ -42,38 +36,38 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
   }
 
   loginWithEmail() {
-    this.loadingService.present();
+    this.utils.presentLoading();
     let message;
     this.authService
       .loginWithEmail(this.email, this.password)
       .then((res) => {
-        this.loadingService.dismiss();
+        this.utils.dismissLoading();
         this.closeModal();
         message = this.utils.labels.toast_successful_login;
-        this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'success');
+        this.utils.presentToast(message, SHORT_DURATION, BOTTOM_POSITION, 'success');
       })
       .catch((err) => {
-        this.loadingService.dismiss();
+        this.utils.dismissLoading();
         message = this.utils.labels.toast_failed_login;
-        this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'danger');
+        this.utils.presentToast(message, SHORT_DURATION, BOTTOM_POSITION, 'danger');
       });
   }
 
   loginWithGoogle() {
-    this.loadingService.present();
+    this.utils.presentLoading();
     let message;
     this.authService
       .loginWithGoogle()
       .then((res) => {
-        this.loadingService.dismiss();
+        this.utils.dismissLoading();
         this.closeModal();
         message = this.utils.labels.toast_successful_login;
-        this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'success');
+        this.utils.presentToast(message, SHORT_DURATION, BOTTOM_POSITION, 'success');
       })
       .catch((err) => {
-        this.loadingService.dismiss();
+        this.utils.dismissLoading();
         message = this.utils.labels.toast_failed_login;
-        this.toastService.present(message, SHORT_DURATION, BOTTOM_POSITION, 'danger');
+        this.utils.presentToast(message, SHORT_DURATION, BOTTOM_POSITION, 'danger');
       });
   }
 
@@ -83,6 +77,6 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-    this.modalService.setIsOpen = false;
+    this.utils.setIsModalOpen = false;
   }
 }

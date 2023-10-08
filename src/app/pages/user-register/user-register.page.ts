@@ -6,8 +6,6 @@ import {
   SHORT_DURATION,
 } from 'src/app/constants/app-constant';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoadingService } from 'src/app/services/loading.service';
-import { ToastService } from 'src/app/services/toast.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { matchFieldsValidator } from 'src/app/shared/validators/matchFieldsValidator';
 
@@ -25,8 +23,6 @@ export class UserRegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService,
-    private loadingService: LoadingService,
     private utils: UtilsService
   ) {
     this.registrationForm = this.formBuilder.group(
@@ -50,7 +46,7 @@ export class UserRegisterPage implements OnInit {
   sendRegistration() {
     let message;
     if (this.registrationForm.valid) {
-      this.loadingService.present();
+      this.utils.presentLoading();
       const email = this.registrationForm.get('email')?.value;
       const password = this.registrationForm.get('password')?.value;
 
@@ -58,8 +54,8 @@ export class UserRegisterPage implements OnInit {
         .registerWithEmail(email, password)
         .then((res) => {
           message = this.utils.labels.toast_successful_registration;
-          this.loadingService.dismiss();
-          this.toastService.present(
+          this.utils.dismissLoading();
+          this.utils.presentToast(
             message,
             SHORT_DURATION,
             BOTTOM_POSITION,
@@ -69,8 +65,8 @@ export class UserRegisterPage implements OnInit {
         })
         .catch((err) => {
           message = this.utils.labels.toast_successful_registration;
-          this.loadingService.dismiss();
-          this.toastService.present(
+          this.utils.dismissLoading();
+          this.utils.presentToast(
             message,
             SHORT_DURATION,
             BOTTOM_POSITION,
@@ -79,7 +75,7 @@ export class UserRegisterPage implements OnInit {
         });
     } else {
       message = this.utils.labels.toast_invalid_form;
-      this.toastService.present(
+      this.utils.presentToast(
         message,
         SHORT_DURATION,
         BOTTOM_POSITION,
