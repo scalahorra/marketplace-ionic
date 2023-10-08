@@ -7,6 +7,7 @@ import { List } from '../../interfaces/List';
 
 import { User } from 'src/app/interfaces/User';
 import { environment } from 'src/environments/environment';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -20,11 +21,10 @@ export class HomePage implements OnInit {
 
   constructor(
     private mockService: MocksService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-
     if (this.mocked) {
       this.lists = this.mockService.getLists();
     }

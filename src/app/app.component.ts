@@ -10,33 +10,42 @@ import { UtilsService } from './services/utils.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
   private subscriptions: Subscription[] = [];
   isModalOpen: boolean = false;
+  actualPage: string = '';
 
-  routes: any = [
-    { label: 'Home', path: '/home'},
-    { label: 'Registro', path: '/register'}
-  ];
+  routes: any;
 
   constructor(
     private authService: AuthService,
     private modalService: ModalService,
-    private utilsService: UtilsService
+    private utils: UtilsService
   ) {}
 
   ngOnInit(): void {
-    this.utilsService.loadLabels();
+    this.utils.loadLabels();
+    this.routes = this.utils.routes;
     this.authService.checkAuthStatus();
-    this.subscriptions.push(
-      this.modalService.getIsOpen.subscribe((isOpen: boolean) => {
-        this.isModalOpen = isOpen;
-      })
-    );
+    this.subscribe();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+
+  subscribe() {
+    this.subscriptions.push(
+      this.modalService.getIsOpen.subscribe((isOpen: boolean) => {
+        this.isModalOpen = isOpen;
+      }),
+      this.utils.getActualPage.subscribe((actualPage: string) => {
+        this.actualPage = actualPage;
+      })
+    );
+  }
+
+  navigateTo(routeId: string) {
+    this.utils.navigateTo(routeId);
   }
 
   closeModal() {

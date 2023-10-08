@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { BOTTOM_POSITION, SHORT_DURATION } from 'src/app/constants/app-constant';
@@ -7,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { ToastService } from 'src/app/services/toast.service';
-import * as labels from '../../../assets/labels.json';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -24,7 +22,6 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private modalCtrl: ModalController,
     private authService: AuthService,
-    private router: Router,
     private loadingService: LoadingService,
     private toastService: ToastService,
     private utils: UtilsService
@@ -81,7 +78,7 @@ export class UnregisteredUserModalComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    this.router.navigate(['/register']);
+    this.utils.navigateTo('register');
     this.closeModal();
   }
 

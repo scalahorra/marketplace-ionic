@@ -10,7 +10,7 @@
     <ion-content>
       <ion-list>
         <ion-item *ngFor="let route of routes">
-          <ion-router-link [routerLink]="route.path">{{route.label}}</ion-router-link>
+          <ion-label (click)="navigateTo(route.id)">{{route.label}}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -25,7 +25,7 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
 
-        <ion-title>Home</ion-title>
+        <ion-title>{{ actualPage }}</ion-title>
 
         <ion-buttons slot="end">
           <app-user-button></app-user-button>
